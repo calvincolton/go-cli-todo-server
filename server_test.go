@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -51,6 +52,11 @@ func setupAPI(t *testing.T) (string, func()) {
 		ts.Close()
 		os.Remove(tempTodoFile.Name())
 	}
+}
+
+func TestMain(m *testing.M) {
+	log.SetOutput(io.Discard)
+	os.Exit(m.Run())
 }
 
 func TestGet(t *testing.T) {
